@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors</title>
+    <link rel="shortcut icon" href="https://cdn0.iconfinder.com/data/icons/traditional-japanese-toys-1/496/janken-rock-paper-scissors-play-64.png" type="image/png">
+    <script>
+        function load()
+        {
+            // Get Button
+            const play_btn = document.getElementById("play_btn");
+
+            // Add Click Event
+            play_btn.addEventListener("click", click);
+        }
+
+        function click()
+        {
+            // Get Select Tag
+            const choice_select = document.getElementById("choice_s");
+
+            // Get Result Div
+            const res_div = document.getElementById("res_div");
+
+            // Create Winner Variable
+            var winner;
+
+            // Get Value
+            var player_choice = choice_select.value;
+
+            // Make Computer Choice Something
+            var computer_choice = Math.round(Math.random() * (3-1) + 1);
+
+            // Swap Number To String
+            switch(computer_choice)
+            {
+                case 1:
+                    computer_choice = "rock";
+                    
+                    break;
+
+                case 2:
+                    computer_choice = "paper";
+
+                    break;
+
+                case 3:
+                    computer_choice = "scissors";
+
+                    break;
+
+                default:
+                    window.alert("[Error] Unexpected Error.");
+
+                    window.location.reload();
+
+                    break;
+
+                    return -1;
+            }
+
+            // Get Result
+            switch(player_choice)
+            {
+                case "rock":
+                    if (computer_choice === "scissors")
+                    {
+                        // Player Win
+                        winner = "Player \u{1F3C6}";
+                    }
+                    else if (computer_choice === "rock")
+                    {
+                        // Nobody Win
+                        winner = null;
+                    }
+                    else
+                    {
+                        // Player Lose
+                        winner = "Computer \u{1F916}";
+                    }
+
+                    break;
+
+                case "paper":
+                    if (computer_choice === "rock")
+                    {
+                        // Player Win
+                        winner = "Player \u{1F3C6}";
+                    }
+                    else if (computer_choice === "paper")
+                    {
+                        // Nobody Win
+                        winner = null;
+                    }
+                    else
+                    {
+                        // Player Lose
+                        winner = "Computer \u{1F916}";
+                    }
+
+                    break;
+
+                case "scissors":
+                    if (computer_choice === "paper")
+                    {
+                        // Player Win
+                        winner = "Player \u{1F3C6}";
+                    }
+                    else if (computer_choice === "scissors")
+                    {
+                        // Nobody Win
+                        winner = null;
+                    }
+                    else
+                    {
+                        // Player Lose
+                        winner = "Computer \u{1F916}";
+                    }
+
+                    break;
+
+                default:
+                    window.alert("[Error] Unexpected Error.");
+
+                    window.location.reload();
+
+                    break;
+
+                    return -1;
+            }
+
+            // Swap the First Character to an UpperCase Character
+            var pattern = /\D/i; // RegExp
+
+            // Apply RegExp to Player Choice Value
+            player_choice = player_choice.replace(pattern, function(match)
+            {
+                return match.toUpperCase();
+            })
+
+            // Apply RegExp to Computer Choice Value
+            computer_choice = computer_choice.replace(pattern, function(match)
+            {
+                return match.toUpperCase();
+            })
+
+            // Display in Result Div
+
+            // Remove The Current Paragraphs
+            res_div.innerHTML = "";
+
+            // Create 3 Paragraphs
+            var p_paragraph = document.createElement("p"), c_paragraph = document.createElement("p"), w_paragraph = document.createElement("p");
+
+            // Player Paragraph Text
+            p_paragraph.innerHTML = `Player Choice: <strong>${player_choice}</strong>`;
+
+            // Computer Paragraph Text
+            c_paragraph.innerHTML = `Computer Choice: <strong>${computer_choice}</strong>`;
+
+            // Winner Paragraph Text
+            
+            if (winner === null)
+            {
+                // Nobody Win
+                w_paragraph.innerHTML = `Nobody Won \u274C`;
+            }
+            else
+            {
+                // Someone Win
+                w_paragraph.innerHTML = `Winner: ${winner}`;
+            }
+
+            // After that, put all into div
+            res_div.appendChild(p_paragraph);
+            res_div.appendChild(c_paragraph);
+            res_div.appendChild(w_paragraph);
+        }
+    </script>
+    <style>
+
+        body, h1
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+        nav, a, header
+        {
+            font-family: Verdana, Helvetica, Arial;
+        }
+
+        header
+        {
+            background-color: #008cff;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav, a
+        {
+            background-color: #000;
+            text-align: center;
+            color: #fff;
+            padding: 5px;
+        }
+
+        main, section, article, footer
+        {
+            padding-left: 15px;
+        }
+
+        p, footer
+        {
+            font-size: 14pt;
+        }
+
+        select
+        {
+            font-size: 12pt;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        button
+        {
+            font-size: 12pt;
+            border: 0;
+            padding: 5px;
+            cursor: pointer;
+            width: 100px;
+            color: #fff;
+            border-radius: 30px;
+            text-align: center;
+            transition-duration: .5s;
+            background-color: #60c000;
+        }
+
+        button:hover
+        {
+            transition-duration: .5s;
+            background-color: #52a300;
+        }
+    </style>
+</head>
+<body onload="load();">
+    <header>
+        <h1>Rock, Paper, Scissors</h1>
+    </header>
+    <nav>
+        <a href="https://vitorbjcc.github.io/russia_quiz/" target="_blank">Russia Quiz</a>
+    </nav>
+    <main>
+        <p>Your Choice: <select id="choice_s">
+            <option value="rock">Rock</option>
+            <option value="paper">Paper</option>
+            <option value="scissors">Scissors</option>
+        </select></p>
+        <p><button id="play_btn">&#x23F5;Play</button></p>
+        </div>
+        <div id="res_div">
+            
+        </div>
+    </main>
+    <footer><p><i>2024, JavaScript</i></p></footer>
+</body>
+</html>
